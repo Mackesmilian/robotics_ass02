@@ -6,6 +6,10 @@ globals [
 
 breed [bees bee]
 
+bees-own [
+ estimated-wait-time
+]
+
 patches-own [
   quality
 ]
@@ -57,19 +61,22 @@ to go
          lt random 90
          rt random 90
       ]
-    ifelse any? other bees in-cone 1.5 120 = true
+    (ifelse any? other bees in-cone 1.5 120 = true
     [
-      fd 1 wait 5
+      set estimated-wait-time 5
+    ]
+     estimated-wait-time > 0 [
+        set estimated-wait-time estimated-wait-time - 1
     ]
     [
-      fd 1
+     fd 1
     ]
+    )
   ]
   ; sehen in-cone
   ; rand erkennen patch-ahead 1 = nobody
   tick
 end
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 207
