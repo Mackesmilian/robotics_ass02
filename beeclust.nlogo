@@ -13,13 +13,18 @@ patches-own [
 to setup
   ca
   create-world
-  create-bees population-size [
+  load-bees
+end
+
+to load-bees
+   create-bees population-size [
    set size 1
    set shape "bug"
    set color yellow
    setxy random-xcor random-ycor
   ]
 end
+
 
 to create-world
   ask patch 59 20 [
@@ -46,13 +51,25 @@ to color-patches
 end
 
 to go
+
   ask bees [
-    forward 1
+    if patch-ahead 1 = nobody [
+         lt random 90
+         rt random 90
+      ]
+    ifelse any? other bees in-cone 1.5 120 = true
+    [
+      fd 1 wait 5
+    ]
+    [
+      fd 1
+    ]
   ]
   ; sehen in-cone
   ; rand erkennen patch-ahead 1 = nobody
   tick
 end
+
 @#$#@#$#@
 GRAPHICS-WINDOW
 207
@@ -124,7 +141,7 @@ population-size
 population-size
 0
 500
-201.0
+220.0
 1
 1
 NIL
