@@ -2,6 +2,7 @@ globals [
   max-quality
   x-max
   y-max
+
 ]
 
 breed [bees bee]
@@ -58,15 +59,14 @@ to go
 
   ask bees [
     if patch-ahead 1 = nobody [
-         lt random 90
-         rt random 90
+         lt 180
       ]
     (ifelse estimated-wait-time > 0 [
         set estimated-wait-time estimated-wait-time - 1
     ]
     any? other bees in-cone 1.5 120 = true
     [
-      set estimated-wait-time quality
+      set estimated-wait-time quality * 4
     ]
     )
 
@@ -83,13 +83,26 @@ to go
   ; sehen in-cone
   ; rand erkennen patch-ahead 1 = nobody
   tick
+  plot-optima
+end
+
+to plot-optima
+  set-current-plot "at_optima"
+  set-current-plot-pen "local"
+  ask patch 0 20 [
+    plot count bees in-radius 20
+  ]
+  set-current-plot-pen "global"
+  ask patch 59 20 [
+    plot count bees in-radius 20
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-207
-27
-935
-516
+529
+67
+1257
+556
 -1
 -1
 12.0
@@ -177,6 +190,36 @@ NIL
 NIL
 NIL
 1
+
+PLOT
+14
+249
+496
+495
+at_optima
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"global" 1.0 0 -2674135 true "" ""
+"local" 1.0 0 -13345367 true "" ""
+
+MONITOR
+252
+135
+329
+180
+percentage
+ask patch 59 20 [\n  count (bees in-radius 20) / (ask patch 0 20 [count bees in-radius 20]) * 100\n]
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
