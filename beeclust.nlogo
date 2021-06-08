@@ -34,13 +34,13 @@ to create-world
   ask patch 59 20 [
     ask patches in-radius 20
     [
-      set quality (125 - (distance patch 59 20) * 3)
+      set quality (125 - (distance patch 59 20) * 5)
     ]
   ]
   ask patch 0 20 [
     ask patches in-radius 20
     [
-      set quality (90 - (distance patch 0 20) * 3)
+      set quality (90 - (distance patch 0 20) * 5)
     ]
   ]
   color-patches
@@ -61,17 +61,24 @@ to go
          lt random 90
          rt random 90
       ]
-    (ifelse any? other bees in-cone 1.5 120 = true
-    [
-      set estimated-wait-time 5
-    ]
-     estimated-wait-time > 0 [
+    (ifelse estimated-wait-time > 0 [
         set estimated-wait-time estimated-wait-time - 1
     ]
+    any? other bees in-cone 1.5 120 = true
     [
-     fd 1
+      set estimated-wait-time quality
     ]
     )
+
+    if estimated-wait-time <= 0 [
+     if random 10 = 1 [
+        lt random 90
+        rt random 90
+     ]
+     fd 1
+    ]
+
+
   ]
   ; sehen in-cone
   ; rand erkennen patch-ahead 1 = nobody
@@ -140,19 +147,36 @@ NIL
 1
 
 SLIDER
-18
-88
-190
-121
+16
+170
+188
+203
 population-size
 population-size
 0
 500
-220.0
+131.0
 1
 1
 NIL
 HORIZONTAL
+
+BUTTON
+111
+69
+188
+102
+go-once
+go
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
