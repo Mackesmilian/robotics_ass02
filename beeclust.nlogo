@@ -4,6 +4,8 @@ globals [
   y-max
 ]
 
+breed [bees bee]
+
 patches-own [
   quality
 ]
@@ -11,19 +13,29 @@ patches-own [
 to setup
   ca
   create-world
-
+  create-bees population-size [
+   set size 1
+   set shape "bug"
+   set color yellow
+   setxy random-xcor random-ycor
+  ]
 end
 
 to create-world
   ask patch 59 20 [
     ask patches in-radius 20
     [
-      ;set pcolor green
-      set quality (125 - (distance patch 59 20) * 5)
+      set quality (125 - (distance patch 59 20) * 3)
+    ]
+  ]
+  ask patch 0 20 [
+    ask patches in-radius 20
+    [
+      set quality (90 - (distance patch 0 20) * 3)
     ]
   ]
   color-patches
-
+  reset-ticks
 end
 
 to color-patches
@@ -34,7 +46,12 @@ to color-patches
 end
 
 to go
-
+  ask bees [
+    forward 1
+  ]
+  ; sehen in-cone
+  ; rand erkennen patch-ahead 1 = nobody
+  tick
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -58,8 +75,8 @@ GRAPHICS-WINDOW
 59
 0
 39
-0
-0
+1
+1
 1
 ticks
 30.0
@@ -97,6 +114,21 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+18
+88
+190
+121
+population-size
+population-size
+0
+500
+201.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
