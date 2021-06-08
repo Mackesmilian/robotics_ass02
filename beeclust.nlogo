@@ -1,4 +1,10 @@
+globals [
+  max-quality
+]
 
+patches-own [
+  quality
+]
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
