@@ -1,16 +1,47 @@
 globals [
   max-quality
+  x-max
+  y-max
 ]
 
 patches-own [
   quality
 ]
+
+to setup
+  ca
+  create-world
+
+end
+
+to create-world
+  ask patch 59 20 [
+    ask patches in-radius 20
+    [
+      ;set pcolor green
+      set quality (125 - (distance patch 59 20) * 5)
+    ]
+  ]
+  color-patches
+
+end
+
+to color-patches
+  ask patches
+  [
+    set pcolor scale-color green quality 1 125
+  ]
+end
+
+to go
+
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
-10
-950
-511
+207
+27
+935
+516
 -1
 -1
 12.0
@@ -24,14 +55,48 @@ GRAPHICS-WINDOW
 0
 1
 0
-60
+59
 0
-40
+39
 0
 0
 1
 ticks
 30.0
+
+BUTTON
+28
+25
+91
+58
+setup
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+110
+26
+173
+59
+go
+go
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
