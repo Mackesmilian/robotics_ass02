@@ -54,10 +54,9 @@ to color-patches
 end
 
 to go
-
   ask bees [
     if patch-ahead 1 = nobody [
-         lt 180
+         lt random 180 + 90
       ]
     (ifelse estimated-wait-time > 0 [
         set estimated-wait-time estimated-wait-time - 1
@@ -75,8 +74,6 @@ to go
      ]
      fd 1
     ]
-
-
   ]
   ; sehen in-cone
   ; rand erkennen patch-ahead 1 = nobody
