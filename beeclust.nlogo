@@ -1,8 +1,6 @@
 globals [
   max-quality
-  x-max
-  y-max
-
+  share-of-turtles-on-max
 ]
 
 breed [bees bee]
@@ -95,6 +93,7 @@ to plot-optima
   set-current-plot-pen "global"
   ask patch 59 20 [
     plot count bees in-radius 20
+    set share-of-turtles-on-max count bees in-radius 20  / population-size * 100
   ]
 end
 @#$#@#$#@
@@ -160,15 +159,15 @@ NIL
 1
 
 SLIDER
-16
-170
-188
-203
+15
+111
+187
+144
 population-size
 population-size
 0
 500
-131.0
+200.0
 1
 1
 NIL
@@ -179,7 +178,7 @@ BUTTON
 69
 188
 102
-go-once
+go once
 go
 NIL
 1
@@ -211,12 +210,12 @@ PENS
 "local" 1.0 0 -13345367 true "" ""
 
 MONITOR
-252
-135
-329
-180
-percentage
-ask patch 59 20 [\n  count (bees in-radius 20) / (ask patch 0 20 [count bees in-radius 20]) * 100\n]
+15
+195
+208
+240
+ratio of turtles at global optimum
+share-of-turtles-on-max
 17
 1
 11
